@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b12">
+<meta name="description" content="A curated cybersecurity resource library covering courses, certifications, bug bounty, recon, OSINT, red teaming, blue teaming, tools and vulnerabilities.">
+<title>CyberVault — Cybersecurity Resource Library</title>
+<style>
+:root{
+  --bg:#090b12;--panel:#111522;--panel2:#151b2b;--line:#273149;
+  --text:#edf2ff;--muted:#9aa7c2;--cyan:#65f3e2;--purple:#a78bfa;
+  --pink:#ff72b6;--green:#9cf7a5;--amber:#ffd479;--shadow:0 18px 60px #0007;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:
+ radial-gradient(ellipse at 12% 0%,#173e4a55,transparent 34rem),
+ radial-gradient(ellipse at 90% 8%,#4a286455,transparent 32rem),var(--bg);
+ color:var(--text);font:15px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:var(--cyan);text-decoration:none;overflow-wrap:anywhere}
+a:hover{color:#fff;text-decoration:underline}
+button,input{font:inherit}
+.topbar{position:sticky;top:0;z-index:10;background:#090b12dc;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff12}
+.topbar-inner{max-width:1200px;margin:auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.brand-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--purple));display:grid;place-items:center;color:#081018;font-weight:950}
+.topnav{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.topnav a{color:var(--muted)}
+.wrap{max-width:1200px;margin:auto;padding:0 22px}
+.hero{padding:76px 0 48px;display:grid;grid-template-columns:1.4fr .6fr;gap:30px;align-items:center}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+h1{font-size:clamp(42px,7vw,76px);line-height:.98;letter-spacing:-.06em;margin:14px 0 20px}
+h1 span{background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);max-width:680px;font-size:17px}
+.hero-card{border:1px solid #ffffff1c;background:linear-gradient(145deg,#172435dd,#151322dd);padding:25px;border-radius:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero-card:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #65f3e233;border-radius:50%;right:-55px;top:-65px;box-shadow:0 0 0 22px #65f3e20a,0 0 0 44px #65f3e207}
+.hero-card strong{display:block;font-size:32px;line-height:1.1}
+.hero-card small{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.stat{background:#ffffff08;border:1px solid #ffffff12;border-radius:12px;padding:12px}
+.stat b{display:block;font-size:21px;color:var(--cyan)}
+.stat span{font-size:11px;color:var(--muted)}
+.toolbar{display:flex;gap:12px;align-items:center;margin:8px 0 26px;flex-wrap:wrap}
+.search{flex:1;min-width:230px;background:#111522;border:1px solid var(--line);color:var(--text);padding:13px 16px;border-radius:12px;outline:none}
+.search:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #65f3e21c}
+.pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:12px}
+.layout{display:grid;grid-template-columns:245px minmax(0,1fr);gap:24px;align-items:start}
+.sidebar{position:sticky;top:78px;background:#101522c9;border:1px solid var(--line);border-radius:16px;padding:15px;max-height:calc(100vh - 100px);overflow:auto}
+.sidebar h3{margin:4px 8px 12px;color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.sidebar a{display:block;padding:8px 10px;border-radius:9px;color:#b9c4da;font-size:12px}
+.sidebar a:hover{background:#ffffff0b;color:var(--cyan);text-decoration:none}
+main{min-width:0}
+.section{margin:0 0 24px;scroll-margin-top:88px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:0 0 14px}
+.section h2{font-size:25px;letter-spacing:-.035em;margin:0}
+.section-kicker{color:var(--cyan);font-size:10px;letter-spacing:.17em;text-transform:uppercase;font-weight:800}
+.section-desc{color:var(--muted);font-size:13px;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.card{background:linear-gradient(145deg,#141a29,#101522);border:1px solid var(--line);border-radius:15px;padding:17px;min-width:0;transition:.2s}
+.card:hover{border-color:#65f3e255;transform:translateY(-2px)}
+.card h3{font-size:15px;margin:0 0 8px}
+.card p{color:var(--muted);font-size:13px;margin:6px 0}
+.tag{display:inline-block;background:#65f3e213;border:1px solid #65f3e22b;color:var(--cyan);border-radius:999px;padding:3px 8px;font-size:10px;margin:2px 4px 2px 0}
+ul.clean{padding-left:18px;margin:8px 0;color:#c5cee1}
+li{margin:4px 0}
+.resource-list{display:grid;gap:9px}
+.resource{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;background:#111725;border:1px solid #ffffff12;padding:12px 14px;border-radius:12px}
+.resource .name{font-weight:650}
+.resource .meta{font-size:11px;color:var(--muted)}
+.resource .link{font-size:12px;flex-shrink:0}
+details{background:#111725;border:1px solid var(--line);border-radius:13px;margin:10px 0;overflow:hidden}
+summary{cursor:pointer;padding:13px 16px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"＋";color:var(--cyan)}
+details[open] summary:after{content:"−"}
+.details-body{padding:0 16px 16px;color:#c5cee1}
+.code{display:block;background:#080c14;border:1px solid #263149;border-radius:9px;padding:10px 12px;margin:8px 0;color:#9cf7d9;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:480px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #ffffff12;vertical-align:top}
+th{color:var(--cyan);background:#65f3e20b;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+td{color:#c5cee1}
+tr:last-child td{border-bottom:0}
+.notice{border-left:3px solid var(--amber);background:#ffd4790b;padding:12px 14px;border-radius:0 10px 10px 0;color:#c7cfe0;font-size:12px;margin:14px 0}
+.vuln-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.vuln{background:#111725;border:1px solid #ffffff12;border-radius:12px;padding:13px}
+.vuln h3{font-size:13px;color:var(--purple);margin:0 0 7px}
+.vuln p{font-size:12px;color:#c5cee1;margin:0}
+footer{border-top:1px solid #ffffff12;margin-top:50px;padding:28px 0 45px;color:var(--muted);font-size:12px}
+.hidden{display:none!important}
+mark{background:#65f3e233;color:var(--text);border-radius:3px}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:50px}.layout{grid-template-columns:1fr}.sidebar{position:relative;top:auto;max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar h3{grid-column:1/-1}.topnav{display:none}}
+@media(max-width:600px){.wrap{padding:0 14px}.topbar-inner{padding:11px 14px}.hero{padding:42px 0 30px}.grid,.vuln-grid{grid-template-columns:1fr}.sidebar{grid-template-columns:1fr 1fr}.resource{display:block}.resource .link{display:block;margin-top:6px}.section h2{font-size:22px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="topbar-inner">
+  <div class="brand"><span class="brand-mark">⌁</span> CYBERVAULT</div>
+  <nav class="topnav"><a href="#courses">Courses</a><a href="#bugbounty">Bug bounty</a><a href="#tools">Tools</a><a href="#vulnerabilities">Vulnerabilities</a></nav>
+ </div>
+</header>
+<div class="wrap">
+ <section class="hero">
+  <div>
+   <div class="eyebrow">Knowledge base / 2026 edition</div>
+   <h1>Your cyber.<br><span>Your toolkit.</span></h1>
+   <p class="lead">A personal cybersecurity resource vault: courses, certifications, research, recon workflows, tool directories, OSINT collections and a broad vulnerability reference — all in one place.</p>
+  </div>
+  <div class="hero-card">
+   <div class="eyebrow">THE RESOURCE ARCHIVE</div>
+   <strong>Learn.<br>Explore.<br>Build.</strong>
+   <small>Use the search bar to find a topic, tool or resource.</small>
+   <div class="stats">
+    <div class="stat"><b>13</b><span>Resource areas</span></div>
+    <div class="stat"><b>100</b><span>Recon tools listed</span></div>
+    <div class="stat"><b>200</b><span>Original vuln entries</span></div>
+   </div>
+  </div>
+ </section>
+ <div class="toolbar">
+  <input class="search" id="search" type="search" placeholder="Search courses, tools, vulnerabilities, topics…" aria-label="Search the resource library">
+  <span class="pill" id="resultCount">Showing all resources</span>
+ </div>
+ <div class="layout">
+  <aside class="sidebar">
+   <h3>Explore the vault</h3>
+   <a href="#courses">01 · Courses & certifications</a>
+   <a href="#articles">02 · Articles & research</a>
+   <a href="#bugbounty">03 · Bug bounty methodology</a>
+   <a href="#osint">04 · Recon & OSINT</a>
+   <a href="#redteam">05 · Red teaming</a>
+   <a href="#blueteam">06 · Blue teaming</a>
+   <a href="#cloud">07 · Cloud & API security</a>
+   <a href="#tools">08 · 100 recon tools</a>
+   <a href="#websecurity">09 · Web security references</a>
+   <a href="#vulnerabilities">10 · Vulnerability library</a>
+   <a href="#downloads">11 · Additional material</a>
+   <a href="#collections">12 · General collections</a>
+   <a href="#duplicates">13 · Duplicates & overlaps</a>
+  </aside>
+  <main id="content">
+   <section class="section searchable" id="courses">
+    <div class="section-head"><div><div class="section-kicker">01 / Learn</div><h2>Courses & certifications</h2><p class="section-desc">Free learning paths and certification opportunities shared in the collection.</p></div></div>
+    <div class="grid">
+     <article class="card"><h3>IBM Cybersecurity Learning Path</h3><p>Learning resources advertised as offering badges and certificates.</p>
+      <ul class="clean">
+       <li>Getting Started with Cybersecurity — 3 hrs · <a href="https://lnkd.in/e3GGBtpJ" target="_blank" rel="noopener">Open course ↗</a></li>
+       <li>Cybersecurity Fundamentals — 7.5 hrs · <a href="https://lnkd.in/dq9vf4KS" target="_blank" rel="noopener">Open course ↗</a></li>
+       <li>Level Up Cybersecurity with Generative AI — 1.5 hrs · <a href="https://lnkd.in/gyZgurdn" target="_blank" rel="noopener">Open course ↗</a></li>
+       <li>Enterprise Security in Practice — 10+ hrs · <a href="https://lnkd.in/dkYmaPty" target="_blank" rel="noopener">Open course ↗</a></li>
+       <li>Threat Intelligence & Hunting — 5 hrs · <a href="https://lnkd.in/dJ_4XJP4" target="_blank" rel="noopener">Open course ↗</a></li>
+       <li>SOC in Practice — 20+ hrs · <a href="https://lnkd.in/d9UcGBD7" target="_blank" rel="noopener">Open course ↗</a></li>
+       <li>Cybersecurity Fluency Pathway — 54 hrs · <a href="https://lnkd.in/dkYmaPty" target="_blank" rel="noopener">Open pathway ↗</a></li>
+      </ul>
+     </article>
+     <article class="card"><h3>Cisco Networking Academy</h3><p>Self-paced courses with hands-on labs.</p>
+      <ul class="clean">
+       <li>Introduction to Cybersecurity — 6 hrs, 7 labs, beginner · <a href="https://lnkd.in/dXgpx8Fq" target="_blank" rel="noopener">Open ↗</a></li>
+       <li>Cyber Threat Management — 16 hrs, 16 labs · <a href="https://lnkd.in/d8Rcf-zG" target="_blank" rel="noopener">Open ↗</a></li>
+       <li>Endpoint Security — 27 hrs, 31 labs · <a href="https://lnkd.in/dgbi3SPm" target="_blank" rel="noopener">Open ↗</a></li>
+       <li>Network Defense — 27 hrs, 29 labs · <a href="https://lnkd.in/dUNqxCAF" target="_blank" rel="noopener">Open ↗</a></li>
+      </ul>
+     </article>
+     <article class="card"><h3>Certified Red Team Operations Management</h3><p>Free-access coupon was shared with the post.</p><span class="tag">CRTOM</span><p>Coupon: <code>CRTOM100OFF</code></p><a href="https://courses.redteamleaders.com/exams/c09a6099-0bc8-4eb4-a4b1-c08d07bb8242" target="_blank" rel="noopener">Certification page ↗</a></article>
+     <article class="card"><h3>Threat Intelligence Course</h3><p>LinkedIn post with promotional code.</p><span class="tag">Threat intelligence</span><p>Code: <code>CTIGA100OFF</code></p><a href="https://www.linkedin.com/posts/nand-lal_free-threatintel-apt-activity-7422202023460098048-F7Eb" target="_blank" rel="noopener">View shared post ↗</a></article>
+    </div>
+    <div class="notice">Course availability, coupon validity, pricing and certificate eligibility can change. Confirm details with the official provider before enrolling.</div>
+   </section>
+
+   <section class="section searchable" id="articles">
+    <div class="section-head"><div><div class="section-kicker">02 / Read</div><h2>Articles & research</h2></div></div>
+    <div class="grid">
+     <article class="card"><h3>BadAudio malware & supply-chain attacks</h3><p>DLL deployment, search-order hijacking, VBS/BAT/LNK delivery, persistence and DLL sideloading.</p><a href="https://www.securityweek.com/chinese-cyberspies-deploy-badaudio-malware-via-supply-chain-attacks/" target="_blank" rel="noopener">Read on SecurityWeek ↗</a></article>
+     <article class="card"><h3>Active Directory Enumeration Using ADModule</h3><p>Active Directory enumeration, domain information gathering and assessment.</p><a href="https://payatu.com/blog/active-directory-enumeration-using-admodule/" target="_blank" rel="noopener">Read on Payatu ↗</a></article>
+    </div>
+   </section>
+
+   <section class="section searchable" id="bugbounty">
+    <div class="section-head"><div><div class="section-kicker">03 / Practice</div><h2>Bug bounty methodology</h2><p class="section-desc">A quick reconnaissance-to-validation workflow from the shared notes.</p></div></div>
+    <details open><summary>01 · Google dorking</summary><div class="details-body">
+     <p>Tool mentioned: BigBountyRecon. Example search patterns:</p>
+     <code class="code">site:*.domain.com inurl:"admin | login" | inurl:.php | .asp</code>
+     <code class="code">site:*.domain.com intext:"sql syntax near" | intext:"syntax error has occurred" | intext:"incorrect syntax near" | intext:"unexpected end of SQL command" | intext:"Warning: mysql_connect()" | intext:"Warning: mysql_query()" | intext:"Warning: pg_connect()"</code>
+     <code class="code">site:*.domain.com inurl:/geoserver/ows?service=wfs</code>
+    </div></details>
+    <details><summary>02 · Subdomain enumeration</summary><div class="details-body">
+     <code class="code">echo domain.com > target.txt
+subfinder -dL target.txt -all -recursive -o Subs01.txt
+subenum -l target.txt -u wayback,crt,abuseipdb,bufferover,Findomain,Subfinder,Amass,Assetfinder -o Subs02.txt
+cat Subs*.txt | anew | tee AllSubs.txt
+cat AllSubs.txt | httpx -o AliveSubs.txt</code>
+    </div></details>
+    <details><summary>03 · URL collection</summary><div class="details-body">
+     <code class="code">cat AliveSubs.txt | waybackurls | tee urls.txt
+cat urls.txt | grep '=' | tee param.txt
+cat urls.txt | grep -iE '.js' | grep -ivE '.json' | sort -u | tee js.txt</code>
+    </div></details>
+    <details><summary>04 · Nuclei vulnerability scanning</summary><div class="details-body">
+     <code class="code">nuclei -list urls.txt -t /fuzzing-templates
+nuclei -list AliveSubs.txt -t /nuclei-templates/vulnerabilities -t /nuclei-templates/cves -t /nuclei-templates/exposures</code>
+    </div></details>
+    <details><summary>05 · XSS testing</summary><div class="details-body">
+     <code class="code">cat urls.txt | uro | gf xss > xss.txt
+dalfox file xss.txt | tee XSSvulnerable.txt</code>
+    </div></details>
+    <details><summary>06 · Local file inclusion (LFI)</summary><div class="details-body">
+     <code class="code">cat AliveSubs.txt | gau | uro | gf lfi | tee lfi.txt
+nuclei -list target.txt -tags lfi</code>
+    </div></details>
+    <details><summary>07 · CORS misconfiguration</summary><div class="details-body"><p>Review the <code>Access-Control-Allow-Origin</code> and <code>Access-Control-Allow-Credentials</code> response headers. A reflected origin alone is not proof of an exploitable issue; validate whether sensitive data is accessible in the permitted browser context.</p></div></details>
+    <details><summary>08 · SQL injection</summary><div class="details-body">
+     <code class="code">python3 sqlifinder.py -d domain.com
+sqlmap -m param.txt --batch --random-agent --level 1 | tee sqlmap.txt</code>
+    </div></details>
+    <details><summary>09 · Open redirect</summary><div class="details-body">
+     <code class="code">cat urls.txt | grep -a -i =http | qsreplace 'evil.com' | while read host; do curl -s -L $host -I | grep evil.com && echo "$host Vulnerable"; done</code>
+    </div></details>
+    <div class="card"><h3>Basic workflow</h3><p><b>Recon → Subdomain enumeration → URL collection → Parameter testing → Vulnerability scanning → Manual validation → Reporting.</b></p></div>
+    <div class="notice">Use these workflows only on systems you own or are explicitly authorized to test. Automated scan output is a lead, not proof of a vulnerability. Check current tool syntax and template paths before running commands.</div>
+   </section>
+
+   <section class="section searchable" id="osint">
+    <div class="section-head"><div><div class="section-kicker">04 / Discover</div><h2>Reconnaissance & OSINT</h2></div></div>
+    <div class="resource-list">
+     <div class="resource"><div><div class="name">Awesome OSINT</div><div class="meta">OSINT tools and resources</div></div><a class="link" href="https://github.com/jivoi/awesome-osint" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><div><div class="name">OSINT Tools Library</div><div class="meta">Start.me collection</div></div><a class="link" href="https://start.me/p/gGO61M/osint-tools" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><div><div class="name">Awesome OSINT Bots</div><div class="meta">Telegram OSINT bots</div></div><a class="link" href="https://github.com/ItIsMeCall911/Awesome-Telegram-OSINT#-bots" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><div><div class="name">Awesome Search Engines</div><div class="meta">Specialized search engines</div></div><a class="link" href="https://github.com/edoardottt/awesome-hacker-search-engines" target="_blank" rel="noopener">Open ↗</a></div>
+    </div>
+   </section>
+
+   <section class="section searchable" id="redteam">
+    <div class="section-head"><div><div class="section-kicker">05 / Offense</div><h2>Red teaming & ethical hacking</h2></div></div>
+    <div class="grid">
+     <article class="card"><h3>Awesome Red Team Operations</h3><a href="https://github.com/CyberSecurityUP/Awesome-Red-Team-Operations" target="_blank" rel="noopener">GitHub ↗</a></article>
+     <article class="card"><h3>Awesome Red Teaming</h3><a href="https://github.com/yeyintminthuhtut/Awesome-Red-Teaming" target="_blank" rel="noopener">GitHub ↗</a></article>
+     <article class="card"><h3>Red Teaming Toolkit</h3><a href="https://0x1.gitlab.io/pentesting/Red-Teaming-Toolkit/" target="_blank" rel="noopener">Open ↗</a></article>
+     <article class="card"><h3>Awesome OSCP</h3><a href="https://github.com/0x4D31/awesome-oscp" target="_blank" rel="noopener">GitHub ↗</a></article>
+     <article class="card"><h3>Awesome Pentest</h3><a href="https://github.com/enaqx/awesome-pentest" target="_blank" rel="noopener">GitHub ↗</a></article>
+     <article class="card"><h3>Awesome Web Hacking</h3><a href="https://github.com/infoslack/awesome-web-hacking" target="_blank" rel="noopener">GitHub ↗</a></article>
+     <article class="card"><h3>Awesome Social Engineering</h3><a href="https://github.com/v2-dev/awesome-social-engineering" target="_blank" rel="noopener">GitHub ↗</a></article>
+    </div>
+    <div class="card" style="margin-top:13px"><h3>USB & hardware security topics</h3><p>USB Rubber Ducky · Bash Bunny · O.MG Cable · USB HID attacks · Hardware-based security testing.</p></div>
+   </section>
+
+   <section class="section searchable" id="blueteam">
+    <div class="section-head"><div><div class="section-kicker">06 / Defense</div><h2>Blue teaming & defensive security</h2></div></div>
+    <div class="resource-list">
+     <div class="resource"><span class="name">Awesome Blue Team Operations</span><a class="link" href="https://github.com/fabacab/awesome-cybersecurity-blueteam" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome SOC</span><a class="link" href="https://github.com/cyb3rxp/awesome-soc" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Incident Response</span><a class="link" href="https://github.com/Correia-jpv/fucking-awesome-incident-response" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Forensics</span><a class="link" href="https://github.com/cugu/awesome-forensics" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Memory Forensics</span><a class="link" href="https://github.com/digitalisx/awesome-memory-forensics" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Threat Intelligence</span><a class="link" href="https://github.com/hslatman/awesome-threat-intelligence" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Malware Analysis</span><a class="link" href="https://github.com/rshipp/awesome-malware-analysis" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Malware Analysis & Reverse Engineering</span><a class="link" href="https://github.com/CyberSecurityUP/Awesome-Malware-Analysis-Reverse-Engineering" target="_blank" rel="noopener">Open ↗</a></div>
+    </div>
+   </section>
+
+   <section class="section searchable" id="cloud">
+    <div class="section-head"><div><div class="section-kicker">07 / Infrastructure</div><h2>Cloud, API & platform security</h2></div></div>
+    <div class="grid">
+     <article class="card"><h3>Cloud security</h3><ul class="clean">
+      <li><a href="https://github.com/4ndersonLin/awesome-cloud-security" target="_blank" rel="noopener">Awesome Cloud Security</a></li>
+      <li><a href="https://github.com/CyberSecurityUP/Awesome-Cloud-PenTest" target="_blank" rel="noopener">Awesome Cloud Pentest</a></li>
+      <li><a href="https://github.com/jassics/awesome-aws-security" target="_blank" rel="noopener">Awesome AWS Security</a></li>
+      <li><a href="https://github.com/shuaibiyy/awesome-terraform" target="_blank" rel="noopener">Awesome Terraform</a></li>
+     </ul></article>
+     <article class="card"><h3>API & web security</h3><ul class="clean">
+      <li><a href="https://github.com/arainho/awesome-api-security" target="_blank" rel="noopener">Awesome API Security</a></li>
+      <li><a href="https://github.com/qazbnm456/awesome-web-security#prototype-pollution" target="_blank" rel="noopener">Awesome Web Security</a></li>
+      <li><a href="https://github.com/snoopysecurity/awesome-burp-extensions" target="_blank" rel="noopener">Awesome Burp Suite Extensions</a></li>
+     </ul></article>
+     <article class="card"><h3>DevSecOps</h3><a href="https://github.com/devsecops/awesome-devsecop" target="_blank" rel="noopener">Awesome DevSecOps ↗</a></article>
+     <article class="card"><h3>IoT & embedded security</h3><ul class="clean">
+      <li><a href="https://github.com/phodal/awesome-iot/blob/master/README.md" target="_blank" rel="noopener">Awesome IoT</a></li>
+      <li><a href="https://github.com/nebgnahz/awesome-iot-hacks" target="_blank" rel="noopener">Awesome IoT Hacks</a></li>
+      <li><a href="https://github.com/fkie-cad/awesome-embedded-and-iot-security" target="_blank" rel="noopener">Awesome Embedded & IoT Security</a></li>
+     </ul></article>
+     <article class="card"><h3>Mobile & iOS security</h3><a href="https://github.com/Cy-clon3/awesome-ios-security" target="_blank" rel="noopener">Awesome iOS Security ↗</a></article>
+     <article class="card"><h3>Web3 & smart contracts</h3><ul class="clean">
+      <li><a href="https://github.com/Anugrahsr/Awesome-web3-Security" target="_blank" rel="noopener">Awesome Web3 Security</a></li>
+      <li><a href="https://github.com/saeidshirazi/Awesome-Smart-Contract-Security" target="_blank" rel="noopener">Awesome Smart Contract Security</a></li>
+     </ul></article>
+    </div>
+   </section>
+
+   <section class="section searchable" id="tools">
+    <div class="section-head"><div><div class="section-kicker">08 / Arsenal</div><h2>100 recon tools</h2><p class="section-desc">The original numbered tool list is preserved, including repeated entries.</p></div></div>
+    <div id="toolList" class="grid"></div>
+   </section>
+
+   <section class="section searchable" id="websecurity">
+    <div class="section-head"><div><div class="section-kicker">09 / Web testing</div><h2>Web security & XSS references</h2></div></div>
+    <div class="grid">
+     <article class="card"><h3>XSS Payload Collection</h3><p>Payload reference for authorized security research and testing.</p><a href="https://xssnow.in/payloads.html" target="_blank" rel="noopener">Open collection ↗</a></article>
+     <article class="card"><h3>Awesome Web Security</h3><a href="https://github.com/qazbnm456/awesome-web-security" target="_blank" rel="noopener">GitHub ↗</a></article>
+     <article class="card"><h3>Awesome Burp Suite Extensions</h3><a href="https://github.com/snoopysecurity/awesome-burp-extensions" target="_blank" rel="noopener">GitHub ↗</a></article>
+    </div>
+   </section>
+
+   <section class="section searchable" id="vulnerabilities">
+    <div class="section-head"><div><div class="section-kicker">10 / Reference</div><h2>Vulnerability library</h2><p class="section-desc">Grouped for easier study. Repeated and overlapping names are intentionally retained.</p></div></div>
+    <div id="vulnList" class="vuln-grid"></div>
+    <details><summary>Original 200-item list: numbering and repeated entries</summary><div class="details-body">
+     <p>The original list contained 200 numbered entries. Exact repeated entries were XXE (#18 and #118), DoS (#35 and #119), XSSI (#64 and #120), RFD (#78 and #121), and TOCTOU (#99 and #122). Related entries are also retained in the categories above.</p>
+    </div></details>
+   </section>
+
+   <section class="section searchable" id="downloads">
+    <div class="section-head"><div><div class="section-kicker">11 / Extra material</div><h2>Additional shared material</h2></div></div>
+    <div class="card">
+     <ul class="clean">
+      <li>Bash Scripting for Cybersecurity — English</li>
+      <li>Ethical Hacking with Hak5 Devices 2024 — English; USB Rubber Ducky, Bash Bunny, O.MG Cable and setup topics</li>
+      <li>The Complete Ethical Hacking Course — Kali Linux 2025 Edition</li>
+      <li>Pentesters Practical Approach for Bug Hunting and Bug Bounty — English</li>
+      <li>Cybersecurity Strategy Development and Implementation — English</li>
+      <li>Cyber Security Blue Team Incident Responder Series, Part 1 — Turkish</li>
+      <li>Selection and Implementation of Security Controls — English; listed size 1.8 GB</li>
+      <li>Web Security & Bug Bounty: Learn Penetration Testing</li>
+      <li>Mobile Hacking / RAT — shared as a Google Drive folder</li>
+      <li>Design Your Own USB Rubber Ducky Ethical Hacking Tool</li>
+      <li>The Best Course to Hack Your Neighbor's Wi-Fi — Hindi</li>
+     </ul>
+     <div class="notice">These were shared through third-party storage links. The files, safety, availability and distribution permissions have not been independently verified. Download learning material only from sources authorized to distribute it. RAT material can contain harmful software; do not run unknown files on your everyday device.</div>
+    </div>
+   </section>
+
+   <section class="section searchable" id="collections">
+    <div class="section-head"><div><div class="section-kicker">12 / More</div><h2>General cybersecurity collections</h2></div></div>
+    <div class="resource-list">
+     <div class="resource"><span class="name">Awesome Security</span><a class="link" href="https://github.com/sbilly/awesome-security" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Coding Army</span><a class="link" href="https://whatsapp.com/channel/0029Va7eYYEJZg46Xbulvl1k" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Chambell Security</span><a class="link" href="https://whatsapp.com/channel/0029Vaz767P6rsQkgTej9v1y" target="_blank" rel="noopener">Open ↗</a></div>
+     <div class="resource"><span class="name">Awesome Piracy</span><a class="link" href="https://github.com/Igglybuff/awesome-piracy" target="_blank" rel="noopener">Open ↗</a></div>
+    </div>
+   </section>
+
+   <section class="section searchable" id="duplicates">
+    <div class="section-head"><div><div class="section-kicker">13 / Cross-reference</div><h2>Duplicates & overlapping entries</h2><p class="section-desc">Nothing is removed from the library just because it appears more than once.</p></div></div>
+    <div class="card"><h3>Exact duplicate resources</h3><ul class="clean">
+     <li>Awesome Cloud Pentest — appeared twice.</li><li>Awesome Web3 Security — appeared twice.</li><li>Awesome Reverse Engineering — appeared twice.</li><li>Awesome Forensics — appeared twice.</li>
+    </ul></div>
+    <div class="card" style="margin-top:12px"><h3>Exact duplicate vulnerability entries</h3>
+     <div class="table-wrap"><table><thead><tr><th>Vulnerability</th><th>Original numbers</th></tr></thead><tbody>
+      <tr><td>XXE</td><td>18, 118</td></tr><tr><td>DoS</td><td>35, 119</td></tr><tr><td>XSSI</td><td>64, 120</td></tr><tr><td>RFD</td><td>78, 121</td></tr><tr><td>TOCTOU</td><td>99, 122</td></tr>
+     </tbody></table></div>
+    </div>
+    <div class="card" style="margin-top:12px"><h3>Related or overlapping vulnerabilities</h3><ul class="clean">
+     <li>Open Redirect / URL Redirection / Unvalidated Redirect / Insecure Redirect</li>
+     <li>XSS / DOM XSS / Stored XSS / Reflected XSS</li>
+     <li>SQLi / Blind SQLi / Time-Based SQLi / Union-Based SQLi / Error-Based SQLi</li>
+     <li>CSRF / Stored CSRF / Reflected CSRF</li>
+     <li>LFI / RFI / File Inclusion</li>
+     <li>CORS Misconfiguration / CORS Bypass / CORS Origin Spoof</li>
+     <li>RCE / Arbitrary Code Execution / Lambda RCE</li>
+     <li>JWT Misconfiguration / JWT Forgery</li>
+     <li>Cache Poisoning / CDN Cache Poisoning</li>
+     <li>HTTP Request Smuggling / HTTP Desync / HTTP/2 Smuggling</li>
+     <li>Privilege Escalation / Kubernetes Privilege Escalation</li>
+     <li>WebSocket Vulnerability / WebSocket Hijacking</li>
+    </ul></div>
+    <div class="card" style="margin-top:12px"><h3>Duplicate tool</h3><p>XNLinkFinder — #40 and #56 in the original 100-tool list.</p></div>
+    <div class="card" style="margin-top:12px"><h3>Similar tools, not duplicates</h3><ul class="clean">
+     <li>Subfinder / Amass / Assetfinder — subdomain enumeration.</li>
+     <li>GAU / Waybackurls — historical URL collection.</li>
+     <li>Gobuster / FFUF / Dirsearch — content and directory discovery.</li>
+     <li>Burp Suite / Mitmproxy — HTTP traffic interception and analysis.</li>
+     <li>Sherlock / Maigret — username and account discovery.</li>
+    </ul></div>
+   </section>
+  </main>
+ </div>
+ <footer>CYBERVAULT · Personal cybersecurity resource archive<br>Links and course details may change. Always verify sources and test only with permission.</footer>
+</div>
+<script>
+const toolGroups = [
+["Subdomain Enumeration",["subfinder","amass","assetfinder","findomain","chaos-client","github-subdomains","crobat","sublist3r","oneforall","dnsx"]],
+["DNS & Network Recon",["shuffledns","massdns","puredns","altdns","dnsgen","hakrevdns","mapcidr","tlsx","naabu","httpx"]],
+["Port Scanning",["rustscan","nmap","masscan","autorecon","unicornscan","zmap","smap","feroxbuster","dirsearch","ffuf"]],
+["Content Discovery",["gobuster","wfuzz","katana","waybackurls","gau","gauplus","uro","hakrawler","paramspider","xnLinkFinder"]],
+["Parameter Discovery",["arjun","parameth","gf","qsreplace","uniscan","param-miner","x8","dalfox","kxss","Gxss"]],
+["JavaScript Recon",["SecretFinder","LinkFinder","JSParser","getJS","subjs","xnLinkFinder","mantra","jsluice","nuclei-js","TruffleHog"]],
+["Screenshots & Visual Recon",["aquatone","gowitness","eyewitness","webscreenshot","witnessme","pageruler","nuclei-templates","webanalyze","wafw00f","whatweb"]],
+["Cloud Recon",["S3Scanner","lazys3","cloud_enum","AWSBucketDump","festin","GCPBucketBrute","GrayhatWarfare","enumerate-iam","ScoutSuite","Pacu"]],
+["API Recon",["kiterunner","swagger-ui-extractor","mitmproxy","postman","graphql-voyager","inql","jwt_tool","burp suite","proxify","nuclei"]],
+["OSINT & Intelligence",["theHarvester","recon-ng","SpiderFoot","GitLeaks","holehe","maigret","sherlock","photon","intelx","Maltego"]]
+];
+const toolRoot=document.getElementById("toolList");
+let toolNo=0;
+toolGroups.forEach(([group,items])=>{
+ const card=document.createElement("article");card.className="card";
+ const h=document.createElement("h3");h.textContent=group;card.appendChild(h);
+ const ol=document.createElement("ol");ol.className="clean";
+ items.forEach(item=>{toolNo++;const li=document.createElement("li");li.textContent=item;ol.appendChild(li)});
+ card.appendChild(ol);toolRoot.appendChild(card);
+});
+const vulnGroups = [
+["Injection & server-side input","SQLi · Stored SQLi · Blind SQLi · Time-Based SQLi · Union-Based SQLi · Error-Based SQLi · Out-of-Band SQLi · Command Injection · LDAP Injection · NoSQL Injection · XXE · GraphQL Injection · SMTP Injection · SSTI · XSLT Injection · CSS Injection · CRLF Injection · DynamoDB Injection · Athena Query Injection · Glue Job Injection"],
+["Cross-Site Scripting (XSS)","XSS · Reflected XSS · Stored XSS · DOM XSS · Blind XSS · Self XSS · Reflected DOM XSS · Stored DOM XSS · HTML Injection · SVG XSS · Cookie-Based XSS · JSONP XSS · Post-Based XSS · GET-Based XSS · Image Upload XSS · SVG File XSS · PNG Extension XSS · Service Worker XSS"],
+["Authentication & sessions","Authentication Bypass · 2FA Bypass · MFA Sync Bypass · Account Takeover · Session Hijacking · Session Fixation · Improper Session Expiration · Weak Password Policy · Brute Force Vulnerability · Password Reset Poisoning · JWT Misconfiguration · JWT Forgery · OAuth Misconfiguration · OAuth Token Replay · OAuth PKCE Bypass · OAuth Scope Escalation · SAML Bypass · Token Leakage · Insufficient Entropy · Insecure Randomness · Weak Encryption · Padding Oracle"],
+["Access control & authorization","IDOR · Privilege Escalation · Access Control Bypass · Unrestricted File Access · Shadow Admin Access · Parameter Tampering · Business Logic Flaw · Logic Flaw · Payment Manipulation · GraphQL Batching Abuse · AppSync Overreach · IAM Overpermission · IAM Role Chaining · K8s Privilege Escalation"],
+["Files & paths","LFI · RFI · File Inclusion · Path Traversal · Arbitrary File Read · Arbitrary File Write · File Upload Bypass · Double Extension Bypass · MIME-Type Bypass · Globbing Bypass · Blacklist Bypass · Shell Upload · Directory Listing · Backup File Disclosure · Source Code Disclosure · RFD"],
+["Application & protocol","RCE · Arbitrary Code Execution · Insecure Deserialization · Server Misconfiguration · Debug Mode Enabled · Information Disclosure · Exposed Admin Panel · Missing Rate Limits · Rate Limit Bypass · API Rate Limit Evasion · DoS · Use-After-Free · TOCTOU · Timing Attack · Improper Input Validation · Insufficient Logging · Dependency Confusion · Prototype Pollution · WebSocket Vulnerability · WebSocket Hijacking · PostMessage Abuse · WASM Misexecution · HTTP Request Smuggling · HTTP/2 Smuggling · HTTP Desync Attack · Host Header Injection"],
+["Browser & cross-origin","CSRF · Stored CSRF · Reflected CSRF · CORS Misconfiguration · CORS Bypass · CORS Origin Spoof · Cross-Origin Resource Sharing (CORS) Bypass · Clickjacking · CSP Bypass · CSP Misparsing · XSSI · Cross-Site Script Inclusion (XSSI) · Reverse Tabnabbing · Web Cache Deception · Cache Poisoning · CDN Cache Poisoning · RPO · Open Redirect · Insecure Redirect · Unvalidated Redirect · URL Redirection"],
+["Network & infrastructure","SSRF · SSRF Token Leak · DNS Rebinding · TLS Misconfiguration · Expired Certificate · HSTS Bypass · QUIC Protocol Abuse · WAF Rule Evasion · WAF Bypass · Email Spoofing · Webhook Spoofing · Cloud Metadata Leak"],
+["Cloud & containers","Serverless Misconfiguration · Serverless SSRF · S3 Bucket Enumeration · S3 Pre-Signed URL Abuse · S3 Lifecycle Abuse · KMS Key Exposure · K8s Secret Leak · Docker Escape · EKS Cluster Takeover · ECS Task Hijack · ECS Task Token Leak · ECS Metadata SSRF · ECS Exec Misuse · ECS Service Hijack · ECS Fargate Escape · Fargate RCE · Lambda RCE · Lambda Layer RCE · API Gateway SSRF · VPC Endpoint SSRF · Cognito Token Leak · Cognito SSRF · CloudTrail Bypass · CloudFormation Drift · RDS Snapshot Leak · ElastiCache Exposure · SNS Topic Hijack · SQS Misconfiguration · Kinesis Stream Poisoning · Redshift Credential Leak · SageMaker RCE · Glue Crawler Exposure · Step Function Abuse · ALB Misconfiguration · ALB Path Confusion · CloudWatch Log Injection · App Runner RCE"],
+["Other security issues","API Key Leakage · Exposed Credentials · Hardcoded Secrets · Database Exposure · Broken Link Hijacking · Subdomain Takeover · Chained Vulnerabilities · Insufficient Logging · Arbitrary File Access · Unrestricted File Access · WAF Rule Evasion · Weak Encryption · Insufficient Entropy · Shadow Admin Access · WebTransport Abuse"]
+];
+const vulnRoot=document.getElementById("vulnList");
+vulnGroups.forEach(([name,items])=>{
+ const card=document.createElement("article");card.className="vuln";
+ const h=document.createElement("h3");h.textContent=name;card.appendChild(h);
+ const p=document.createElement("p");p.textContent=items;card.appendChild(p);vulnRoot.appendChild(card);
+});
+const search=document.getElementById("search"),count=document.getElementById("resultCount");
+function runSearch(){
+ const q=search.value.trim().toLowerCase();let visible=0;
+ document.querySelectorAll(".searchable").forEach(section=>{
+  const text=section.innerText.toLowerCase();const match=!q||text.includes(q);
+  section.classList.toggle("hidden",!match);if(match)visible++;
+ });
+ count.textContent=q?`${visible} matching sections`:"Showing all resources";
+}
+search.addEventListener("input",runSearch);
+</script>
+</body>
+</html>
